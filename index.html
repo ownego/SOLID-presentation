@@ -135,7 +135,7 @@
                         <div>After</div>
 						<pre>
 							<code data-trim data-noescape>
-                                class StandardChessBoardRenderer implements ChessBoardRenderer {
+                                class ScreenChessBoardRenderer implements ChessBoardRenderer {
                                     protected $chessBoard;
                                     public function __construct(ChessBoard $chessBoard){}
                                     public function render(){}
@@ -191,7 +191,7 @@
                         <span>After</span>
                         <pre>
                             <code data-trim data-noescape>
-                                interface CalculateArea
+                                interface AreaCalculateable
                                 {
                                     public function area();
                                 }
@@ -203,7 +203,7 @@
                         <span>After</span>
                         <pre>
                             <code data-trim data-noescape>
-                                class Rectangle implements CalculateArea {
+                                class Rectangle implements AreaCalculateable {
                                     protected $width;
                                     protected $height;
                                     public function __construct($width, $height){}
@@ -214,7 +214,7 @@
                         </pre>
                         <pre>
                             <code data-trim data-noescape>
-                                class Square implements CalculateArea {
+                                class Square implements AreaCalculateable {
                                     protected $side;
                                     public function __construct($side){}
                                     public function area(){}
@@ -228,7 +228,7 @@
                         <pre>
                             <code data-trim data-noescape>
                                 class Main {
-                                    public static function getArea(CalculateArea $shape) {
+                                    public static function getArea(AreaCalculateable $shape) {
                                         return $shape->area();
                                     }
                                 }
