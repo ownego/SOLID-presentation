@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>
+						<span>S</span><span class="fragment" data-fragment-index="1">.</span><span>O</span><span class="fragment" data-fragment-index="1">.</span><span>L</span><span class="fragment" data-fragment-index="1">.</span><span>I</span><span class="fragment" data-fragment-index="1">.</span>D
+					</h1>
+				</section>
+				<section>
+					<section>
+						<h3>
+							<span>S</span><span class="fragment" data-fragment-index="2">ingle</span>
+							<span class="fragment" data-fragment-index="1">R</span><span class="fragment" data-fragment-index="2">esponsibility</span>
+							<span class="fragment" data-fragment-index="1">P</span><span class="fragment" data-fragment-index="2">rinciple</span>
+						</h3>
+						<q class="fragment" data-fragment-index="3">A module should have one, and only one, reason to change</q>
+					</section>
+					<section>
+                        <h4>Single Responsiblity Principle</h4>
+                        <div>Before</div>
+						<pre>
+							<code data-trim data-noescape>
+                                class ChessBoard {
+                                    protected $board;
+                                    public function __construct($size){}
+                                    public function placeQueen($x, $y){}
+                                    public function renderToScreen(){}
+                                    public function renderToJSON(){}
+                                }
+							</code>
+						</pre>
+					</section>
+					<section>
+                        <h4>Single Responsiblity Principle</h4>
+                        <div>After</div>
+						<pre>
+							<code data-trim data-noescape>
+                                class ChessBoard {
+                                    protected $board;
+                                    public function __construct($size){}
+                                    public function placeQueen($x, $y){}
+                                }
+                            </code>
+						</pre>
+						<pre>
+							<code data-trim data-noescape>
+                                class ChessBoardRenderer {
+                                    protected $chessBoard;
+                                    public function __construct(ChessBoard $chessBoard){}
+                                    public function renderToScreen(){}
+                                    public function renderToJSON(){}
+                                }
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>
+							<span>O</span><span class="fragment" data-fragment-index="2">pen-</span><span class="fragment" data-fragment-index="1">C</span><span class="fragment" data-fragment-index="2">losed</span>
+							<span class="fragment" data-fragment-index="1">P</span><span class="fragment" data-fragment-index="2">rinciple</span>
+						</h3>
+						<q class="fragment" data-fragment-index="3">A software artifact should be open for extension but closed for modification</q>
+					</section>
+					<section>
+                        <h4>Open-closed principle</h4>
+                        <div>Before</div>
+						<pre>
+							<code data-trim data-noescape>
+                                class ChessBoard {
+                                    protected $board;
+                                    public function __construct($size){}
+                                    public function placeQueen($x, $y){}
+                                }
+                            </code>
+                        </pre>
+						<pre>
+							<code data-trim data-noescape>
+                                class ChessBoardRenderer {
+                                    protected $chessBoard;
+                                    public function __construct(ChessBoard $chessBoard){}
+                                    public function renderToScreen(){}
+                                    public function renderToJSON(){}
+                                }
+							</code>
+						</pre>
+					</section>
+					<section>
+                        <h4>Open-closed principle</h4>
+                        <div>After</div>
+						<pre>
+							<code data-trim data-noescape>
+                                class ChessBoard {
+                                    protected $board;
+                                    public function __construct($size){}
+                                    public function placeQueen($x, $y){}
+                                }
+                            </code>
+                        </pre>
+                        <pre>
+							<code data-trim data-noescape>
+                                interface ChessBoardRenderer
+                                {
+                                    public function render();
+                                }
+                            </code>
+                        </pre>
+					</section>
+					<section>
+                        <h4>Open-closed principle</h4>
+                        <div>After</div>
+						<pre>
+							<code data-trim data-noescape>
+                                class StandardChessBoardRenderer implements ChessBoardRenderer {
+                                    protected $chessBoard;
+                                    public function __construct(ChessBoard $chessBoard){}
+                                    public function render(){}
+                                }
+                            </code>
+                        </pre>
+                        <pre>
+							<code data-trim data-noescape>
+                                class JSONChessBoardRenderer implements ChessBoardRenderer {
+                                    protected $chessBoard;
+                                    public function __construct(ChessBoard $chessBoard){}
+                                    public function render(){}
+                                }
+                            </code>
+                        </pre>
+                    </section>
+				</section>
+				<section>
+					<section>
+						<h3>
+							<span>L</span><span class="fragment" data-fragment-index="2">iskov</span>
+							<span class="fragment" data-fragment-index="1">S</span><span class="fragment" data-fragment-index="2">ubstitution</span>
+							<span class="fragment" data-fragment-index="1">P</span><span class="fragment" data-fragment-index="2">rinciple</span>
+						</h3>
+						<q class="fragment" data-fragment-index="3">
+							What is wanted here is something like the following substitution property: If for each object o1 of type S there is an object o2 of type T such that for all programs P defined in terms of T, the behavior of P is unchanged when o1 is substituted for o2 then S is a subtype of T
+						</q>
+                    </section>
+                    <section>
+                        <h4>Liskov Substitution Principle</h4>
+                        <span>Before</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                class Rectangle {
+                                    protected $width;
+                                    protected $height;
+                                    public function __construct($width, $height){}
+                                    public function area(){}
+                                }
+                                
+                                class Square extends Rectangle {}
+
+                                class Main {
+                                    public static function getArea(Rectangle $rectangle) {
+                                        return $rectangle->area();
+                                    }
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h4>Liskov Substitution Principle</h4>
+                        <span>After</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                interface CalculateArea
+                                {
+                                    public function area();
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h4>Liskov Substitution Principle</h4>
+                        <span>After</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                class Rectangle implements CalculateArea {
+                                    protected $width;
+                                    protected $height;
+                                    public function __construct($width, $height){}
+                                    public function area(){}
+
+                                }
+                            </code>
+                        </pre>
+                        <pre>
+                            <code data-trim data-noescape>
+                                class Square implements CalculateArea {
+                                    protected $side;
+                                    public function __construct($side){}
+                                    public function area(){}
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h4>Liskov Substitution Principle</h4>
+                        <span>After</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                class Main {
+                                    public static function getArea(CalculateArea $shape) {
+                                        return $shape->area();
+                                    }
+                                }
+                            </code>
+                        </pre>
+                    </section>
+				</section>
+				<section>
+					<section>
+						<h3>
+							<span>I</span><span class="fragment" data-fragment-index="2">nterface</span>
+							<span class="fragment" data-fragment-index="1">S</span><span class="fragment" data-fragment-index="2">egregation</span>
+							<span class="fragment" data-fragment-index="1">P</span><span class="fragment" data-fragment-index="2">rinciple</span>
+						</h3>
+                    </section>
+                    <section>
+                        <h4>Interface Segregation Principle</h4>
+                        <span>Before</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                interface ShapeInterface {
+                                    public function area();
+                                    public function volume();
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h4>Interface Segregation Principle</h4>
+                        <span>After</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                interface FlatShapeInterface {
+                                    public function area();
+                                }
+                            </code>
+                        </pre>
+                        <pre>
+                            <code data-trim data-noescape>
+                                interface SolidShapeInterface {
+                                    public function volume();
+                                }
+                            </code>
+                        </pre>
+                    </section>
+				</section>
+				<section>
+					<section>
+						<h3>
+							<span>D</span><span class="fragment" data-fragment-index="2">ependency</span>
+							<span class="fragment" data-fragment-index="1">I</span><span class="fragment" data-fragment-index="2">nversion</span>
+							<span class="fragment" data-fragment-index="1">P</span><span class="fragment" data-fragment-index="2">rinciple</span>
+						</h3>
+					</section>
+                    <section>
+                        <h4>Dependency Inversion Principle</h4>
+                        <span>Before</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                class Controller {
+                                    public function __construct(){}
+                                    public function save()
+                                    {
+                                        $db = new MysqlDB();
+                                        $db->save($this);
+                                    }
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                    <section>
+                        <h4>Dependency Inversion Principle</h4>
+                        <span>After</span>
+                        <pre>
+                            <code data-trim data-noescape>
+                                class Controller {
+                                    public function __construct(DB $db){}
+                                    public function save() {
+                                        $this->db->save($this);
+                                    }
+                                }
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+                <section>
+                    <h4>Thanks!</h4>
+                </section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				],
+				transition: 'fade',
+			});
+		</script>
+	</body>
+</html>
